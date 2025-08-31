@@ -22,14 +22,10 @@ interface FormValues {
     tag: "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
 }
 
-const formValues: FormValues = {
+const values: FormValues = {
     title: "",
     content: "",
     tag: "Todo",
-}
-
-export interface NoteFormProps {
-    onCloseModal: () => void;
 }
 
 export default function NoteForm() {
@@ -63,7 +59,7 @@ export default function NoteForm() {
     };
 
     return (
-        <Formik initialValues={draft ?? formValues} validationSchema={FormSchema} onSubmit={handleSubmit} enableReinitialize>
+        <Formik initialValues={draft ?? values} validationSchema={FormSchema} onSubmit={handleSubmit} enableReinitialize>
             <Form className={css.form}>
                 <div className={css.formGroup}>
                     <label htmlFor={`${fieldId}-title`}>Title</label>
@@ -72,7 +68,7 @@ export default function NoteForm() {
                 </div>
 
                 <div className={css.formGroup}>
-                    <label htmlFor="content">Content</label>
+                    <label htmlFor={`${fieldId}-content`}>Content</label>
                     <Field as="textarea" id={`${fieldId}-content`} name="content" rows={8} className={css.textarea} onChange={handleChange} />
                     <ErrorMessage name="content" component="span" className={css.error} />
                 </div>
@@ -89,12 +85,13 @@ export default function NoteForm() {
                     <ErrorMessage name="tag" component="span" className={css.error} />
                 </div>
 
-                <div className={css.actions}>
-                    <button type="button" className={css.cancelButton} onClick={() => { clearDraft(); router.back()}}>Cancel</button>
-                    <button type="submit" className={css.submitButton} disabled={isPending}>
-                        {isPending ? "Creating..." : "Create note"}
-                    </button>
-                </div>
+                {/* <div className={css.actions}> */}
+                    
+                <button type="submit" className={css.submitButton} disabled={isPending}>
+                    {isPending ? "Creating..." : "Create note"}
+                </button>
+                <button type="button" className={css.cancelButton} onClick={() => { clearDraft(); router.back() }}>Cancel</button>
+                {/* </div> */}
             </Form>
         </Formik>
     );
