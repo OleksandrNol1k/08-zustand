@@ -13,7 +13,7 @@ import Link from "next/link"
 
 type NotesClientProps = {
     initialData: FetchNoteList;
-    tag: string;
+    tag?: string;
 };
 
 export default function NotesClient({ initialData, tag }: NotesClientProps) {

@@ -33,7 +33,7 @@ export default async function NotesPage({ params }: NotesPageProps) {
     const { slug } = await params;
     const initialPage = 1;
     const initialQuery = "";
-    const initialTag = slug?.[0] && slug[0].toLowerCase() !== "all" ? slug[0] : undefined;
-    const initialData: FetchNoteList = await fetchNotes(initialPage, initialQuery, initialTag);
-    return <NotesClient initialData={initialData} initialTag={initialTag} />;
+    const tag = slug?.[0] && slug[0].toLowerCase() !== "all" ? slug[0] : undefined;
+    const initialData: FetchNoteList = await fetchNotes(initialPage, initialQuery, tag);
+    return <NotesClient initialData={initialData} tag={tag} />;
 }
