@@ -13,10 +13,10 @@ import Link from "next/link"
 
 type NotesClientProps = {
     initialData: FetchNoteList;
-    initialTag?: string;
+    tag: string;
 };
 
-export default function NotesClient({ initialData, initialTag }: NotesClientProps) {
+export default function NotesClient({ initialData, tag }: NotesClientProps) {
     
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState("");
@@ -32,9 +32,10 @@ export default function NotesClient({ initialData, initialTag }: NotesClientProp
     }
     
     const { data, isLoading, isError, isSuccess } = useQuery({
-        queryKey: ["notes", page, query, initialTag],
-        queryFn: () => fetchNotes(page, query, initialTag),
-        placeholderData: keepPreviousData, initialData,
+        queryKey: ["notes", page, query, tag],
+        queryFn: () => fetchNotes(page, query, tag),
+        initialData,
+        placeholderData: initialData,
     })
 
     const totalPages = data?.totalPages ?? 0;
