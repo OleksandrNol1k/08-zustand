@@ -9,7 +9,7 @@ interface NotesPageProps {
 
 export const generateMetadata = async ({ params }: NotesPageProps): Promise<Metadata> => {
     const { slug } = await params;
-    const tag = slug[0] === "All" ? "All notes" : slug[0];
+    const tag = slug?.[0] && slug[0].toLowerCase() !== "all" ? slug[0] : undefined;
 
     return {
         title: `Notes: ${tag}`,
@@ -33,7 +33,7 @@ export default async function NotesPage({ params }: NotesPageProps) {
     const { slug } = await params;
     const initialPage = 1;
     const initialQuery = "";
-    const initialTag = slug?.[0] === "All" ? slug[0] : undefined;
+    const initialTag = slug?.[0] && slug[0].toLowerCase() !== "all" ? slug[0] : undefined;
     const initialData: FetchNoteList = await fetchNotes(initialPage, initialQuery, initialTag);
     return <NotesClient initialData={initialData} initialTag={initialTag} />;
 }
